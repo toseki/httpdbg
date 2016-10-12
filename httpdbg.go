@@ -8,7 +8,7 @@ import (
 )
 
 
-func reqout(req *http.Request) {
+func Reqout(req *http.Request) {
 	// programCounter, sourceFileName, sourceFileLineNum, ok := runtime.Caller(1)
 	programCounter, sourceFileName, sourceFileLineNum, ok := runtime.Caller(1)
 	_ = sourceFileName
@@ -20,7 +20,7 @@ func reqout(req *http.Request) {
 	fmt.Print("[TOSEKI] %s Req \n %s\n",fn.Name(),reqdata)
 }
 
-func resout(res *http.Response) {
+func Resout(res *http.Response) {
 	programCounter, sourceFileName, sourceFileLineNum, ok := runtime.Caller(1)
 	_ = sourceFileName
 	_ = sourceFileLineNum
