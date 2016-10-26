@@ -10,23 +10,29 @@ import (
 
 func Reqout(req *http.Request) {
 	// programCounter, sourceFileName, sourceFileLineNum, ok := runtime.Caller(1)
-	programCounter, sourceFileName, sourceFileLineNum, ok := runtime.Caller(1)
-	_ = sourceFileName
-	_ = sourceFileLineNum
-	_ = ok
-	fn := runtime.FuncForPC(programCounter)
+	fmt.Print("[TOSEKI]httpdbg.Reqout\n")
+	for depth :=0; ; depth++{
+		programCounter, srcFileName, srcFileLineNum, ok := runtime.Caller(depth)
+		if !ok {
+			break
+		}
+		fmt.Printf(" -> %d: %s: %s(%d)\n", depth, runtime.FuncForPC(programCounter).Name(), srcFileName, srcFileLineNum)
+	}
 	reqdata, err := httputil.DumpRequest(req, true)
 	_ = err
-	fmt.Printf("[TOSEKI]httpdbg - call from func %s \n Reqdata= %s\n",fn.Name(),reqdata)
+	fmt.Printf("[TOSEKI]httpdbg - Reqdata= %s\n",reqdata)
 }
 
 func Resout(res *http.Response) {
-	programCounter, sourceFileName, sourceFileLineNum, ok := runtime.Caller(1)
-	_ = sourceFileName
-	_ = sourceFileLineNum
-	_ = ok
-	fn := runtime.FuncForPC(programCounter)
+	fmt.Print("[TOSEKI]httpdbg.Resout\n")
+	for depth :=0; ; depth++{
+		programCounter, srcFileName, srcFileLineNum, ok := runtime.Caller(depth)
+		if !ok {
+			break
+		}
+		fmt.Printf(" -> %d: %s: %s(%d)\n", depth, runtime.FuncForPC(programCounter).Name(), srcFileName, srcFileLineNum)
+	}
 	resdata, err := httputil.DumpResponse(res, true)
 	_ = err
-	fmt.Printf("[TOSEKI]httpdbg - call from func %s \n Response= %s\n",fn.Name(),resdata)
+	fmt.Printf("[TOSEKI]httpdbg - Response= %s\n",resdata)
 }
